@@ -1,4 +1,4 @@
-﻿using System.IO;
+using System.IO;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Threading;
@@ -10,6 +10,7 @@ using static QN_Rewrite.utils.KeyEvents;
 using LibVLCSharp.Shared;
 using MediaPlayer = LibVLCSharp.Shared.MediaPlayer;
 using KeyEventArgs = System.Windows.Input.KeyEventArgs;
+using LibVLCSharp.WPF;
 namespace QN_Rewrite;
 
 
@@ -22,11 +23,11 @@ public partial class MainWindow : Window
 	private DispatcherTimer? timeui;
 	private double DeltaWidth = 0;
 
-	internal static List<StoredInfo> MarkersList=new();
+	internal static List<StoredInfo> MarkersList = new();
 
 
 	public MainWindow()
-    {
+	{
 		var libvlc = new LibVLC();
 		InitializeComponent();
 
@@ -75,7 +76,7 @@ public partial class MainWindow : Window
 				});
 			};
 		};
-    }
+	}
 
 
 	private void Button_Click(object sender, RoutedEventArgs e)
@@ -115,7 +116,7 @@ public partial class MainWindow : Window
 
 	private void UpdateDisplays(object? sender, EventArgs args)
 	{
-		if (player!=null && player.IsPlaying && player.Time < player.Media?.Duration)
+		if (player != null && player.IsPlaying && player.Time < player.Media?.Duration)
 		{
 			TextA.Text = $"x{player.Rate.ToString()}";
 			TextB.Text = ToClock(player.Time);
@@ -155,6 +156,5 @@ public partial class MainWindow : Window
 	{
 		if (player == null) return;
 		KeyPressed(e, MarkersList, player, TextC, Markers);
-		DeltaWidth = 0;
 	}
 }
