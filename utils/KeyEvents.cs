@@ -1,4 +1,4 @@
-﻿using LibVLCSharp.Shared;
+using LibVLCSharp.Shared;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Controls;
@@ -75,7 +75,7 @@ internal class KeyEvents
 			{
 				StoredInfo prev = list[count - 1];
 				long dif = player.Time - prev.end;
-				if (dif <= 6000 && dif > 0)
+				if (dif <= 6000 && dif >= 0)
 				{
 					if (prev.rect.Fill == Brushes.LimeGreen)
 						prev.rect.Fill = Brushes.Red;
@@ -86,6 +86,7 @@ internal class KeyEvents
 					prev.endPos = 0;
 					prev.index = kevent.Key;
 					list[count - 1] = prev;
+					return;
 				}
 			}
 
